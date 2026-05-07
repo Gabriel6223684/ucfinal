@@ -2,41 +2,50 @@
 
 namespace app\database;
 
-use PDO;
+use Doctrine\DBAL\Connection as DBALConnection;
+use Doctrine\DBAL\DriverManager;
 
-class Connection
+final class Connection
 {
-    #variavel de conexão com o banco de dados.
-    private static $pdo = null;
-    #Método de conexão com o banco de dados.
-    public static function connection(): PDO
+    private static ?DBALConnection $instance = null;
+
+    public static function get(): DBALConnection
     {
-        #Tentativa de estabelecer uma conexão com o banco de dados com tratamentos de execuxão.
-        try {
-            #caso já exista a conexão com o banco de dados retornamos a conexão.
-            if (static::$pdo) {
-                return static::$pdo;
-            }
-            #Definindo as opções para a conexão do PDO
-            $options = [
-                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, # Lança exeções em caso de erros.
-                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, #Define o modo de fetch padrão com array,associativo.
-                PDO::ATTR_EMULATE_PREPARES => false, # Desativa a emulação de prepared statements.
-                PDO::ATTR_PERSISTENT => true, #Conexão persistente para melhorar perfomace.
-                PDO::ATTR_STRINGIFY_FETCHES => false # Desativa a conversão de valores numericos para strings.
-            ];
-            #criação da nova conexão PDO com os pârametro do banco de dados.
-            static::$pdo = new PDO(
-                'pgsql:host=localhost;port=5432;dbname=development_db;client_encoding=utf8',
-                'postgres', # Nome de usuario do banco de dados
-                '2009', # Senha do banco de dados
-                $options # Opções para conexão PDO.
-            );
-            static::$pdo->exec("SET NAMES 'utf8'");
-            #Caso seja bem-sucedida a conexão retornamos a variavel $pdo;
-            return static::$pdo;
-        } catch (\PDOException $e) {
-            throw new \PDOException("Erro: " . $e->getMessage(), 1);
+        if (self::$instance !== null) {
+            return self::$instance;
         }
+
+        self::$instance = DriverManager::getConnection([
+            'driver'   => 'pdo_pgsql',
+'host'     => $_ENV['DB_HOST'] ?? 'postgres',
+            'port'     => (int) ($_ENV['DB_PORT'] ?? 5432),
+            'dbname'   => $_ENV['DB_NAME'] ?? 'development_db',
+            'user'     => $_ENV['DB_USER'] ?? 'senac',
+            'password' => $_ENV['DB_PASSWORD'] ?? 'senac',
+            'charset'  => 'UTF8',
+        ]);
+
+        return self::$instance;
     }
-}}
+
+    private function __construct() {}
+}
+
+class Database
+{
+    private static ?Connection $conn = null;
+
+    public static function connection(): Connection
+    {
+        if (!self::$conn) {
+            self::$conn = \app\database\Connection::get();
+        }
+
+        return self::$conn;
+    }
+
+    public static function qb()
+    {
+        return self::connection()->createQueryBuilder();
+    }
+}

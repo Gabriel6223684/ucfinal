@@ -1,0 +1,22 @@
+body {
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+.auth-container {
+  margin-top: 8vh;
+}
+.tab-content {
+  display: none;
+}
+.tab-content.is-active {
+  display: block;
+}
+.box {
+  border-radius: 8px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+/* Estilo para o ícone de senha ser clicável */
+.icon.is-right {
+  pointer-events: initial !important;
+  cursor: pointer;
+}

@@ -134,7 +134,7 @@ document.querySelector("#app").innerHTML = `
       <li><a href="#">Pricing</a></li>
     </ul>
 
-    <a href="#" class="login-btn">Log in</a>
+    <a href="../app/view/pages/login.html" class="login-btn">Log in</a>
   </nav>
 
   <main>

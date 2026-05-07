@@ -51,10 +51,7 @@ export default defineConfig(({ command }) => ({
                 // JS principal — sem nenhum import de CSS dentro dele
                 app: resolve(__dirname, 'resources/js/app.js'),
                 // Entries por página
-                'pages/customer': resolve(__dirname, 'resources/js/pages/customer.js'),
-                'pages/list-customer': resolve(__dirname, 'resources/js/pages/list-customer.js'),
-                'pages/user': resolve(__dirname, 'resources/js/pages/user.js'),
-                'pages/list-user': resolve(__dirname, 'resources/js/pages/list-user.js')
+                'pages/user': resolve(__dirname, 'resources/js/pages/user.js')
 
             },
             output: {
