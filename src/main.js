@@ -119,6 +119,35 @@ styleSheet.innerText = `
     transition: background 0.2s;
   }
 
+  /* Container do link de perfil */
+.user-profile-link {
+    display: flex !important;
+    align-items: center; /* Alinha verticalmente no centro */
+    gap: 8px; /* Espaço entre o ícone e o texto */
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+}
+
+/* Estilização do SVG */
+.user-profile-link svg {
+    display: block;
+    color: #febd69; /* Cor de destaque (mesma do seu botão) */
+    vertical-align: middle;
+}
+
+/* Ajuste do texto ao lado do ícone */
+.user-name-text {
+    font-weight: 600;
+    line-height: 1; /* Remove alturas de linha extras que empurram o texto */
+    margin-top: 2px; /* Ajuste fino se necessário */
+}
+
+/* Efeito ao passar o mouse */
+.user-profile-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+}
+
   .btn-outline:hover { background: var(--border); }
 `;
 document.head.appendChild(styleSheet);
@@ -129,14 +158,21 @@ document.querySelector("#app").innerHTML = `
     <div class="logo">MINIMAL.</div>
     
     <ul class="nav-links">
-      <li><a href="../app/view/pages/products.html">Products</a></li>
+      <li><a href="../app/view/pages/products-for-sale.html">Products</a></li>
       <li><a href="#">Features</a></li>
       <li><a href="#">Pricing</a></li>
     </ul>
 
     <a href="../app/view/pages/login.html" class="login-btn">Log in</a>
+    <a href="#" class="navbar-item user-profile-link">
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+    </svg>
+    
+    <span class="user-name-text">Minha Conta</span>
+</a>
   </nav>
-
   <main>5
     <section class="hero">
       <h1>Design simple.<br>Build fast.</h1>
