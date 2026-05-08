@@ -129,7 +129,7 @@ document.querySelector("#app").innerHTML = `
     <div class="logo">MINIMAL.</div>
     
     <ul class="nav-links">
-      <li><a href="#">Product</a></li>
+      <li><a href="../app/view/pages/products.html">Products</a></li>
       <li><a href="#">Features</a></li>
       <li><a href="#">Pricing</a></li>
     </ul>
@@ -137,7 +137,7 @@ document.querySelector("#app").innerHTML = `
     <a href="../app/view/pages/login.html" class="login-btn">Log in</a>
   </nav>
 
-  <main>
+  <main>5
     <section class="hero">
       <h1>Design simple.<br>Build fast.</h1>
       <p>A high-performance template for those who value aesthetics and speed. No clutter, just code.</p>

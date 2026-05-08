@@ -3,7 +3,7 @@ body {
   min-height: 100vh;
 }
 .auth-container {
-  margin-top: 8vh;
+  margin-top: 5vh;
 }
 .tab-content {
   display: none;
@@ -13,10 +13,16 @@ body {
 }
 .box {
   border-radius: 8px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+  border-top: 4px solid #00d1b2;
 }
-/* Estilo para o ícone de senha ser clicável */
 .icon.is-right {
   pointer-events: initial !important;
   cursor: pointer;
+}
+/* Estilo para destacar a seleção de perfil */
+.profile-selector {
+  background: #ebfffc;
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 20px;
 }

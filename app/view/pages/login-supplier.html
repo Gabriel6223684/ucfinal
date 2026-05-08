@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sign In</title>
+    <title>seller portal</title>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css"
@@ -12,49 +12,41 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
-    <link rel="stylesheet" href="../assets/css/login.css" />
+    <link rel="stylesheet" href="../assets//css//login-supplier.css" />
   </head>
   <body>
     <section class="section">
       <div class="container">
         <div class="columns is-centered">
           <div class="column is-4-desktop is-6-tablet">
+            <div class="has-text-centered mb-5">
+              <span class="vendor-badge">SELLER PORTAL</span>
+              <h1 class="title is-3">sell with us</h1>
+              <p class="subtitle is-6">Manage your products and sales.</p>
+            </div>
+
             <div class="auth-container">
               <div class="tabs is-centered is-toggle is-toggle-rounded">
                 <ul>
                   <li id="login-tab" class="is-active">
-                    <a onclick="showTab('login')">Login</a>
+                    <a onclick="showTab('login')">Access Panel</a>
                   </li>
                   <li id="register-tab">
-                    <a onclick="showTab('register')">Register</a>
+                    <a onclick="showTab('register')">Want to Seller</a>
                   </li>
                 </ul>
               </div>
 
               <div class="box">
-                <div id="login-header" class="has-text-centered mb-5">
-                  <h1 class="title is-4">Login</h1>
-                  <p class="subtitle is-6">Access your account</p>
-                </div>
-                <div
-                  id="register-header"
-                  class="has-text-centered mb-5 is-hidden"
-                >
-                  <h1 class="title is-4">Register</h1>
-                  <p class="subtitle is-6">create your free account</p>
-                </div>
-
-                <hr />
-
                 <div id="login-content" class="tab-content is-active">
                   <form>
                     <div class="field">
-                      <label class="label">Email</label>
+                      <label class="label">Corporate email</label>
                       <div class="control has-icons-left">
                         <input
                           class="input"
                           type="email"
-                          placeholder="you@email.com"
+                          placeholder="sales@yourenterprise.com"
                           required
                         />
                         <span class="icon is-small is-left"
@@ -85,60 +77,54 @@
                       </div>
                     </div>
 
-                    <button class="button is-primary is-fullwidth mt-5">
-                      Entrar
+                    <button class="button is-link is-fullwidth is-medium mt-5">
+                      Entrar no Painel
                     </button>
                   </form>
-                  <div class="box">
-                    <div id="login-content" class="tab-content is-active">
-                      <p class="has-text-centered is-size-7 mt-4">
-                        <a href="./forgot-password.html">Forgot Password?</a>
-                      </p>
-                    </div>
-                  </div>
-
-                  <div class="has-text-centered mt-5">
-                    <div class="notification is-light">
-                      <p class="is-size-7">
-                        Are you a company or do you want to sell with us?
-                      </p>
-                      <a
-                        href="login-supplier.html"
-                        class="button is-link is-outlined is-small mt-2"
-                      >
-                        <span class="icon"
-                          ><i class="fas fa-shipping-fast"></i
-                        ></span>
-                        <span>Access Supplier Portal</span>
-                      </a>
-                    </div>
-                  </div>
+                  <p class="has-text-centered is-size-7 mt-4">
+                    <a href="./forgot-password.html">Having trouble accessing the site?</a>
+                  </p>
                 </div>
 
                 <div id="register-content" class="tab-content">
                   <form>
                     <div class="field">
-                      <label class="label">Name / Enterprise</label>
+                      <label class="label">Store/Company Name</label>
                       <div class="control has-icons-left">
                         <input
                           class="input"
                           type="text"
-                          placeholder="Full name or company name"
+                          placeholder="Example: Silva Electronics LTDA"
                           required
                         />
                         <span class="icon is-small is-left"
-                          ><i class="fas fa-user"></i
+                          ><i class="fas fa-store"></i
                         ></span>
                       </div>
                     </div>
 
                     <div class="field">
-                      <label class="label">Email</label>
+                      <label class="label">CPF or CNPJ of the responsible party</label>
+                      <div class="control has-icons-left">
+                        <input
+                          class="input"
+                          type="text"
+                          placeholder="00.000.000/0001-00"
+                          required
+                        />
+                        <span class="icon is-small is-left"
+                          ><i class="fas fa-id-card"></i
+                        ></span>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <label class="label">Contact email</label>
                       <div class="control has-icons-left">
                         <input
                           class="input"
                           type="email"
-                          placeholder="contact@email.com"
+                          placeholder="contact@yourstore.com"
                           required
                         />
                         <span class="icon is-small is-left"
@@ -148,13 +134,13 @@
                     </div>
 
                     <div class="field">
-                      <label class="label">Password</label>
+                      <label class="label">Create access password</label>
                       <div class="control has-icons-left has-icons-right">
                         <input
                           class="input"
                           type="password"
                           id="reg-pass"
-                          placeholder="Minimum 8 characters"
+                          placeholder="strong password"
                           required
                         />
                         <span class="icon is-small is-left"
@@ -169,17 +155,26 @@
                       </div>
                     </div>
 
-                    <button class="button is-link is-fullwidth mt-5">
-                      Create Account
+                    <button class="button is-info is-fullwidth is-medium mt-5">
+                      Request registration
                     </button>
                   </form>
+                  <p class="has-text-centered is-size-7 mt-4 has-text-grey">
+                    Your request will be reviewed within 24 hours.
+                  </p>
                 </div>
+              </div>
+              <div class="has-text-centered mt-5">
+                <a href="login.html" class="button is-text is-small">
+                  Not a seller? Go to Customer Login.
+                </a>
               </div>
             </div>
           </div>
         </div>
       </div>
     </section>
-    <script src="../assets/js/login.js"></script>
+
+    <script src="../assets/js/login-supplier.js"></script>
   </body>
 </html>
