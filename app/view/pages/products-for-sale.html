@@ -70,7 +70,10 @@
 
             <div class="navbar-item">
               <div class="buttons">
-                <a class="button is-light">
+                <a
+                  class="button is-light js-modal-trigger"
+                  data-target="modal-cart"
+                >
                   <span class="icon"><i class="fas fa-shopping-cart"></i></span>
                   <span>Cart</span>
                 </a>
@@ -78,7 +81,10 @@
             </div>
             <div class="navbar-item">
               <div class="buttons">
-                <a class="button is-light">
+                <a
+                  class="button is-light js-modal-trigger"
+                  data-target="modal-favorites"
+                >
                   <span class="icon"><i class="fa-regular fa-heart"></i></span>
                   <span>Favorites</span>
                 </a>
@@ -217,6 +223,197 @@
       </div>
     </section>
 
+    <div id="modal-cart" class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Carrinho</p>
+          <button class="delete" aria-label="close"></button>
+        </header>
+
+        <section class="modal-card-body">
+          <div class="field">
+            <label class="label">Payment Method</label>
+            <div class="control">
+              <div class="select is-primary is-fullwidth">
+                <select id="payment-method">
+                  <option>Pix</option>
+                  <option>Card</option>
+                  <option>Money</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <hr />
+
+          <div class="field">
+            <label class="label">Endereço de Entrega</label>
+            <div class="control has-icons-left">
+              <input
+                class="input is-primary"
+                type="text"
+                placeholder="Rua, número, bairro..."
+              />
+              <span class="icon is-small is-left">
+                <i class="fas fa-map-marker-alt"></i>
+              </span>
+            </div>
+            <p class="help">Ex: Rua das Conchas, 123 - Fenda do Biquíni</p>
+          </div>
+
+          <div
+            class="products-list mb-5"
+            style="max-height: 300px; overflow-y: auto"
+          >
+            <label class="label">Selected Items</label>
+
+            <article class="media is-align-items-center">
+              <div class="media-content">
+                <div class="content">
+                  <p>
+                    <strong>Krabby Patty</strong> <br />
+                    <small>$ 25.00</small>
+                  </p>
+                </div>
+              </div>
+              <div class="media-right">
+                <button
+                  class="button is-danger is-inverted is-small"
+                  title="Remover item"
+                >
+                  <span class="icon"> <i class="fas fa-trash"></i> </span>
+                  <span>Remove</span>
+                </button>
+              </div>
+            </article>
+
+            <article class="media is-align-items-center">
+              <div class="media-content">
+                <div class="content">
+                  <p>
+                    <strong>French fries</strong> <br />
+                    <small>$ 15.00</small>
+                  </p>
+                </div>
+              </div>
+              <div class="media-right">
+                <button class="button is-danger is-inverted is-small">
+                  <span class="icon"> <i class="fas fa-trash"></i> </span>
+                  <span>Remove</span>
+                </button>
+              </div>
+            </article>
+          </div>
+
+          <div class="content">
+            <div class="is-flex is-justify-content-space-between">
+              <span>Total Gross:</span>
+              <span class="has-text-grey">$ 0.00</span>
+            </div>
+            <div
+              class="is-flex is-justify-content-space-between has-text-weight-bold is-size-5 mt-2"
+            >
+              <span>Total Net:</span>
+              <span class="has-text-success">$ 0.00</span>
+            </div>
+          </div>
+        </section>
+
+        <footer class="modal-card-foot is-justify-content-flex-end">
+          <button class="button">Cancel</button>
+          <button class="button is-success">Finalize Purchase</button>
+        </footer>
+      </div>
+    </div>
+
+    <div id="modal-favorites" class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">My Favorites</p>
+          <button class="delete" aria-label="close"></button>
+        </header>
+
+        <section class="modal-card-body">
+          <div
+            class="products-favorites-list"
+            style="max-height: 400px; overflow-y: auto"
+          >
+            <article class="media is-align-items-center py-3">
+              <div class="media-content">
+                <div class="content">
+                  <p>
+                    <strong>Krabby Patty</strong> <br />
+                    <small class="has-text-primary has-text-weight-bold"
+                      >$ 25.00</small
+                    >
+                  </p>
+                </div>
+              </div>
+              <div class="media-right field is-grouped">
+                <p class="control">
+                  <button
+                    class="button is-primary is-small is-outlined"
+                    title="Adicionar ao carrinho"
+                  >
+                    <span class="icon is-small"
+                      ><i class="fas fa-cart-plus"></i
+                    ></span>
+                  </button>
+                </p>
+                <p class="control">
+                  <button
+                    class="button is-danger is-light is-small"
+                    title="Remover dos favoritos"
+                  >
+                    <span class="icon is-small"
+                      ><i class="fas fa-heart-broken"></i
+                    ></span>
+                  </button>
+                </p>
+              </div>
+            </article>
+
+            <article
+              class="media is-align-items-center py-3"
+              style="border-top: 1px solid #eee"
+            >
+              <div class="media-content">
+                <div class="content">
+                  <p>
+                    <strong>French fries</strong> <br />
+                    <small class="has-text-primary has-text-weight-bold"
+                      >$ 15.00</small
+                    >
+                  </p>
+                </div>
+              </div>
+              <div class="media-right field is-grouped">
+                <p class="control">
+                  <button class="button is-primary is-small is-outlined">
+                    <span class="icon is-small"
+                      ><i class="fas fa-cart-plus"></i
+                    ></span>
+                  </button>
+                </p>
+                <p class="control">
+                  <button class="button is-danger is-light is-small">
+                    <span class="icon is-small"
+                      ><i class="fas fa-heart-broken"></i
+                    ></span>
+                  </button>
+                </p>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <footer class="modal-card-foot is-justify-content-flex-end">
+          <button class="button is-fullwidth">Close</button>
+        </footer>
+      </div>
+    </div>
     <script src="../../../resources/js/pages/products-for-sale.js"></script>
   </body>
 </html>

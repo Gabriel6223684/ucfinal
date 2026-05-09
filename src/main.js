@@ -176,7 +176,7 @@ document.querySelector("#app").innerHTML = `
   <main>5
     <section class="hero">
       <h1>Design simple.<br>Build fast.</h1>
-      <p>A high-performance template for those who value aesthetics and speed. No clutter, just code.</p>
+      <p>A high-performance template for those who value aesthetics and speed.</p>
       
       <div class="cta-group">
         <a href="../app/view/layouts/main.html" class="btn-main">Get Started</a>
