@@ -2,16 +2,18 @@
 
 declare(strict_types=1);
 
-$app->get('/', app\controller\Home::class . ':home');
-$app->get('/home', app\controller\Home::class . ':home');
-$app->get('/login', app\controller\Login::class . ':login');
+$app->get('/', app\controller\Home::class . ':home')->add(app\middleware\Middleware::web());
+$app->get('/home', app\controller\Home::class . ':home')->add(app\middleware\Middleware::web());
+$app->get('/login', app\controller\Login::class . ':login')->add(app\middleware\Middleware::web());
 
+$app->group('/authentication', function (Slim\Routing\RouteCollectorProxy $group) {
+    $group->post('/auth', app\controller\Login::class . ':authenticate');
+    $group->post('/preregister', app\controller\Register::class . ':preregister');
+});
 $app->group('/usuario', function (Slim\Routing\RouteCollectorProxy $group) {
     $group->get('/lista', app\controller\User::class . ':list');
     $group->get('/detalhes/{id}', app\controller\User::class . ':details');
     $group->get('/detalhes', app\controller\User::class . ':details');
     $group->post('/insert', app\controller\User::class . ':insert');
     $group->post('/update', app\controller\User::class . ':update');
-    $group->post('/delete', app\controller\User::class . ':delete');
-    $group->post('/listingdata', app\controller\User::class . ':listingdata');
 });

@@ -157,12 +157,6 @@ document.querySelector("#app").innerHTML = `
   <nav class="navbar">
     <div class="logo">MINIMAL.</div>
     
-    <ul class="nav-links">
-      <li><a href="../app/view/pages/products-for-sale.html">Products</a></li>
-      <li><a href="#">Features</a></li>
-      <li><a href="#">Pricing</a></li>
-    </ul>
-
     <a href="../app/view/pages/login.html" class="login-btn">Log in</a>
     <a href="../app/view/pages/profile.html" class="navbar-item user-profile-link">
     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
@@ -174,13 +168,6 @@ document.querySelector("#app").innerHTML = `
   </nav>
   <main>5
     <section class="hero">
-      <h1>Design simple.<br>Build fast.</h1>
-      <p>A high-performance template for those who value aesthetics and speed.</p>
-      
-      <div class="cta-group">
-        <a href="../app/view/layouts/main.html" class="btn-main">Get Started</a>
-        <a href="#" class="btn-outline">View Demo</a>
-      </div>
     </section>
   </main>
 `;

@@ -16,6 +16,7 @@
   </head>
   <body>
     <section class="section">
+
       <div class="container">
         <div class="columns is-centered">
           <div class="column is-4-desktop is-6-tablet">
@@ -47,13 +48,15 @@
                 <hr />
 
                 <div id="login-content" class="tab-content is-active">
-                  <form>
+                  <form id="formlogin">
                     <div class="field">
                       <label class="label">Email</label>
                       <div class="control has-icons-left">
                         <input
                           class="input"
                           type="email"
+                          id="email"
+                          name="email"
                           placeholder="you@email.com"
                           required
                         />
@@ -70,6 +73,7 @@
                           class="input"
                           type="password"
                           id="login-pass"
+                          name="login-pass"
                           placeholder="********"
                           required
                         />
@@ -85,7 +89,11 @@
                       </div>
                     </div>
 
-                    <button class="button is-primary is-fullwidth mt-5">
+                    <button
+                      type="button"
+                      id="login"
+                      class="button is-primary is-fullwidth mt-5"
+                    >
                       Entrar
                     </button>
                   </form>
@@ -97,32 +105,19 @@
                     </div>
                   </div>
 
-                  <div class="has-text-centered mt-5">
-                    <div class="notification is-light">
-                      <p class="is-size-7">
-                        Are you a company or do you want to sell with us?
-                      </p>
-                      <a
-                        href="login-supplier.html"
-                        class="button is-link is-outlined is-small mt-2"
-                      >
-                        <span class="icon"
-                          ><i class="fas fa-shipping-fast"></i
-                        ></span>
-                        <span>Access Supplier Portal</span>
-                      </a>
-                    </div>
-                  </div>
+
                 </div>
 
                 <div id="register-content" class="tab-content">
-                  <form>
+                  <form id="formregister">
                     <div class="field">
-                      <label class="label">Name / Enterprise</label>
+                      <label class="label">Name</label>
                       <div class="control has-icons-left">
                         <input
                           class="input"
                           type="text"
+                          id="nome"
+                          name="nome"
                           placeholder="Full name or company name"
                           required
                         />
@@ -138,6 +133,8 @@
                         <input
                           class="input"
                           type="email"
+                          id="email"
+                          name="email"
                           placeholder="contact@email.com"
                           required
                         />
@@ -148,12 +145,30 @@
                     </div>
 
                     <div class="field">
+                      <label class="label">Phone Number</label>
+                      <div class="control has-icons-left">
+                        <input
+                          class="input"
+                          type="tel"
+                          id="tel"
+                          name=""
+                          placeholder="(0) 12345678"
+                          required
+                        />
+                        <span class="icon is-small is-left"
+                          ><i class="fa-solid fa-phone"></i>
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="field">
                       <label class="label">Password</label>
                       <div class="control has-icons-left has-icons-right">
                         <input
                           class="input"
                           type="password"
                           id="reg-pass"
+                          name="reg-pass"
                           placeholder="Minimum 8 characters"
                           required
                         />
@@ -169,7 +184,11 @@
                       </div>
                     </div>
 
-                    <button class="button is-link is-fullwidth mt-5">
+                    <button
+                      type="button"
+                      id="register"
+                      class="button is-link is-fullwidth mt-5"
+                    >
                       Create Account
                     </button>
                   </form>
@@ -180,6 +199,8 @@
         </div>
       </div>
     </section>
-    <script src="../assets/js/login.js"></script>
+    <script src="../../../resources/js/pages/login.js"></script>
+    <script type="module" src="../../assets/js/register.js"></script>
   </body>
 </html>
+
