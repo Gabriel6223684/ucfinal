@@ -2,6 +2,10 @@ import Swal from "sweetalert2";
 import Validate from "../components/validate.js";
 import Request from "../components/requests.js";
 
+$(document).ready(function () {
+  $("#tel").mask("(00) 00000-0000");
+});
+
 const buttonRegister = document.getElementById("register");
 
 if (buttonRegister) {
@@ -28,7 +32,9 @@ if (buttonRegister) {
       buttonRegister.disabled = true;
 
       // Envia para /authentication/preregister
-      await requests.setForm("formregister").post("/authentication/preregister");
+      await requests
+        .setForm("formregister")
+        .post("/authentication/preregister");
 
       Swal.fire({
         icon: "success",
@@ -52,4 +58,3 @@ if (buttonRegister) {
     }
   });
 }
-

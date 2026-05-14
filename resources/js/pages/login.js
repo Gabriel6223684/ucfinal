@@ -1,37 +1,53 @@
-function showTab(type) {
-  // Alterna Abas
-  document
-    .getElementById("login-tab")
-    .classList.toggle("is-active", type === "login");
-  document
-    .getElementById("register-tab")
-    .classList.toggle("is-active", type === "register");
+import Swal from "sweetalert2";
+import Requests from "../components/requests.js";
 
-  // Alterna Conteúdos
-  document
-    .getElementById("login-content")
-    .classList.toggle("is-active", type === "login");
-  document
-    .getElementById("register-content")
-    .classList.toggle("is-active", type === "register");
+const buttonLogin = document.getElementById("login");
 
-  // Alterna Cabeçalhos
-  document
-    .getElementById("login-header")
-    .classList.toggle("is-hidden", type === "register");
-  document
-    .getElementById("register-header")
-    .classList.toggle("is-hidden", type === "login");
-}
+if (buttonLogin) {
+  buttonLogin.addEventListener("click", async () => {
+    const login = document.getElementById("login-email")?.value?.trim();
+    const senha = document.getElementById("login-pass")?.value?.trim();
 
-function togglePassword(inputId) {
-  const input = document.getElementById(inputId);
-  const icon = document.getElementById(inputId + "-icon");
-  if (input.type === "password") {
-    input.type = "text";
-    icon.classList.replace("fa-eye", "fa-eye-slash");
-  } else {
-    input.type = "password";
-    icon.classList.replace("fa-eye-slash", "fa-eye");
-  }
+    if (!login || !senha) {
+      Swal.fire({
+        icon: "error",
+        title: "Ops...",
+        text: "Preencha seu email e senha!",
+        timer: 2500,
+      });
+      return;
+    }
+
+    const requests = new Requests();
+    const originalText = buttonLogin.textContent;
+
+    try {
+      buttonLogin.textContent = "Entrando, aguarde...";
+      buttonLogin.disabled = true;
+
+      const data = await requests
+        .setForm("formlogin")
+        .post("/authentication/authenticate");
+
+      Swal.fire({
+        icon: "success",
+        title: data?.msg || "Bem-vindo!",
+        timer: 1500,
+        showConfirmButton: false,
+        willClose: () => {
+          window.location.href = "/dashboard";
+        },
+      });
+    } catch (e) {
+      console.error("Erro no login:", e);
+      Swal.fire({
+        icon: "error",
+        title: "Erro ao entrar",
+        text: e?.message || "Erro ao conectar ao servidor.",
+      });
+    } finally {
+      buttonLogin.disabled = false;
+      buttonLogin.textContent = originalText;
+    }
+  });
 }

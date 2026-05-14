@@ -1,10 +1,8 @@
-// --- Injeção de Estilo (CSS in JS) ---
+// --- 1. Injeção de Estilo (CSS in JS) ---
 const styleSheet = document.createElement("style");
 styleSheet.innerText = `
   :root {
     --bg-color: #ffffff;
-    --text-main: #1a1a1a;
-    --text-muted: #666666;
     --accent: #000000;
     --border: #f0f0f0;
   }
@@ -33,141 +31,161 @@ styleSheet.innerText = `
     z-index: 1000;
   }
 
-  .logo {
-    font-weight: 800;
-    font-size: 1.2rem;
-    letter-spacing: -1px;
-  }
+  .logo { font-weight: 800; font-size: 1.2rem; letter-spacing: -1px; }
 
-  .nav-links {
-    display: flex;
-    gap: 2rem;
-    list-style: none;
-  }
-
-  .nav-links a {
-    text-decoration: none;
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: color 0.2s;
-  }
-
-  .nav-links a:hover { color: var(--accent); }
-
-  .login-btn {
-    background: var(--accent);
-    color: white;
-    padding: 0.5rem 1.2rem;
-    border-radius: 6px;
-    text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: opacity 0.2s;
-  }
-
-  .login-btn:hover { opacity: 0.8; }
-
-  /* Hero Section */
-  .hero {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 0 1rem;
-  }
-
-  .hero h1 {
-    font-size: 4rem;
-    font-weight: 800;
-    letter-spacing: -2px;
-    margin-bottom: 1rem;
-  }
-
-  .hero p {
-    color: var(--text-muted);
-    font-size: 1.25rem;
-    max-width: 600px;
-    margin-bottom: 2rem;
-  }
-
-  .cta-group {
-    display: flex;
-    gap: 1rem;
-  }
-
-  .btn-main {
-    padding: 0.8rem 2rem;
-    border-radius: 8px;
-    border: 1px solid var(--accent);
-    background: var(--accent);
-    color: white;
-    text-decoration: none;
-    font-weight: 600;
-  }
-
-  .btn-outline {
-    padding: 0.8rem 2rem;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    background: transparent;
-    color: var(--text-main);
-    text-decoration: none;
-    font-weight: 600;
-    transition: background 0.2s;
-  }
-
-  /* Container do link de perfil */
-.user-profile-link {
+  .user-profile-link {
     display: flex !important;
-    align-items: center; /* Alinha verticalmente no centro */
-    gap: 8px; /* Espaço entre o ícone e o texto */
-    padding: 0.5rem 1rem;
-    transition: all 0.3s ease;
-}
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: var(--text-main);
+  }
 
-/* Estilização do SVG */
-.user-profile-link svg {
-    display: block;
-    color: #febd69; /* Cor de destaque (mesma do seu botão) */
-    vertical-align: middle;
-}
-
-/* Ajuste do texto ao lado do ícone */
-.user-name-text {
-    font-weight: 600;
-    line-height: 1; /* Remove alturas de linha extras que empurram o texto */
-    margin-top: 2px; /* Ajuste fino se necessário */
-}
-
-/* Efeito ao passar o mouse */
-.user-profile-link:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-}
-
-  .btn-outline:hover { background: var(--border); }
+  .user-profile-link svg { color: #febd69; }
+  
+  .app-layout { display: flex; height: 100vh; pt: 80px; } /* Ajuste para navbar fixa */
+  .sidebar { width: 300px; border-right: 1px solid var(--border); }
+  .main-content { flex: 1; }
+  
 `;
 document.head.appendChild(styleSheet);
 
-// --- Estrutura HTML ---
-document.querySelector("#app").innerHTML = `
-  <nav class="navbar">
-    <div class="logo">MINIMAL.</div>
-    
-    <a href="../app/view/pages/login.html" class="login-btn">Log in</a>
-    <a href="../app/view/pages/profile.html" class="navbar-item user-profile-link">
-    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
-        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
-        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
-    </svg>
-    <span class="user-name-text">My Account</span>
-</a>
-  </nav>
-  <main>5
-    <section class="hero">
-    </section>
-  </main>
-`;
+// --- 2. Variáveis de Estado ---
+let conversations = [];
+let activeChat = null;
+let pollingInterval = null;
+const appEl = document.querySelector("#app");
+
+// --- 3. Funções de Renderização ---
+
+async function renderHome() {
+  if (typeof stopPolling === "function") stopPolling();
+
+  const user = window.currentUser; // Assumindo que existe globalmente
+  const initials =
+    typeof getInitials === "function"
+      ? getInitials(user?.username || user?.email)
+      : "??";
+
+  try {
+    const dbConvs = await window.api.getConversations(user.id);
+    conversations = dbConvs.map((c) => ({
+      id: c.other_id,
+      username: c.username,
+      email: c.email,
+      lastMsg: c.last_msg || "",
+      time: typeof formatTime === "function" ? formatTime(c.time) : c.time,
+    }));
+  } catch (e) {
+    conversations = [];
+  }
+
+  appEl.innerHTML = `
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
+    <nav class="navbar">
+      <div class="logo">MINIMAL.</div>
+
+      <div class="field has-addons">
+        <p class="control">
+          <input class="input" type="text" placeholder="Find a post" />
+        </p>
+        <p class="control">
+          <button class="button">Search</button>
+        </p>
+      </div>
+      <div class="chat-list" id="chat-list">
+          ${renderChatList()}
+        </div>
+
+      <div style="display: flex; gap: 20px; align-items: center;">
+        <a href="../app/view/pages/login.html" class="login-btn">Log in</a>
+        <a href="../app/view/pages/profile.html" class="user-profile-link">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+          </svg>
+          <span class="user-name-text">My Account</span>
+        </a>
+      </div>
+    </nav>
+
+    <div class="app-layout" style="margin-top: 70px;">
+      <div class="sidebar">
+        <div class="sidebar-header" style="padding: 20px;">
+          <div class="avatar">${initials}</div>
+        </div>
+        <div class="chat-list" id="chat-list">
+          ${renderChatList()}
+        </div>
+      </div>
+      <div class="main-content" id="main-content">
+        ${renderEmptyState()}
+      </div>
+    </div>
+  `;
+
+  if (activeChat) openChat(activeChat);
+}
+
+function renderChatList() {
+  if (conversations.length === 0) {
+    return `<div style="padding: 20px; text-align: center;">Nenhuma conversa ainda</div>`;
+  }
+
+  return conversations
+    .map(
+      (c) => `
+    <div class="chat-item ${activeChat === c.id ? "active" : ""}" onclick="openChat(${c.id})" 
+         style="padding: 15px; border-bottom: 1px solid #eee; cursor: pointer;">
+      <div class="chat-item-name"><strong>${c.username || c.email}</strong></div>
+      <div class="chat-item-preview" style="font-size: 0.8rem; color: #666;">${c.lastMsg || "Iniciar conversa"}</div>
+    </div>
+  `,
+    )
+    .join("");
+}
+
+function renderEmptyState() {
+  return `
+    <div class="empty-state" style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%;">
+      <h3>MINIMAL.</h3>
+      <p>Selecione uma conversa para começar</p>
+    </div>
+  `;
+}
+
+async function openChat(receiverId) {
+  activeChat = receiverId;
+  if (typeof stopPolling === "function") stopPolling();
+
+  const conv = conversations.find((c) => c.id === receiverId);
+  const name = conv?.username || conv?.email || "Usuário";
+
+  const main = document.getElementById("main-content");
+  if (!main) return;
+
+  main.innerHTML = `
+    <div class="chat-header" style="padding: 15px; border-bottom: 1px solid #eee;">
+      <strong>${name}</strong>
+    </div>
+    <div class="messages-area" id="messages-area" style="height: 400px; overflow-y: auto; padding: 20px;">
+      <div style="text-align:center;color:gray;">Carregando...</div>
+    </div>
+    <div class="message-input-bar" style="padding: 15px; display: flex; gap: 10px;">
+      <input id="msg-input" style="flex:1; padding: 8px;" placeholder="Mensagem..." 
+             onkeydown="if(event.key==='Enter') sendMsg(${receiverId})">
+      <button onclick="sendMsg(${receiverId})">Enviar</button>
+    </div>
+  `;
+
+  await loadMessages(receiverId);
+  // Reatribui o polling
+  pollingInterval = setInterval(() => loadMessages(receiverId), 3000);
+}
+
+function stopPolling() {
+  if (pollingInterval) clearInterval(pollingInterval);
+}
+
+// Inicializa a página
+renderHome();

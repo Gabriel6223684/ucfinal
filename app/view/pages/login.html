@@ -13,10 +13,14 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
     <link rel="stylesheet" href="../assets/css/login.css" />
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- Plugin Mask -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
   </head>
   <body>
     <section class="section">
-
       <div class="container">
         <div class="columns is-centered">
           <div class="column is-4-desktop is-6-tablet">
@@ -48,6 +52,7 @@
                 <hr />
 
                 <div id="login-content" class="tab-content is-active">
+                  <!-- Form login -->
                   <form id="formlogin">
                     <div class="field">
                       <label class="label">Email</label>
@@ -55,8 +60,8 @@
                         <input
                           class="input"
                           type="email"
-                          id="email"
-                          name="email"
+                          id="login-email"
+                          name="login"
                           placeholder="you@email.com"
                           required
                         />
@@ -73,7 +78,7 @@
                           class="input"
                           type="password"
                           id="login-pass"
-                          name="login-pass"
+                          name="senha"
                           placeholder="********"
                           required
                         />
@@ -104,8 +109,6 @@
                       </p>
                     </div>
                   </div>
-
-
                 </div>
 
                 <div id="register-content" class="tab-content">
@@ -151,7 +154,7 @@
                           class="input"
                           type="tel"
                           id="tel"
-                          name=""
+                          name="tel"
                           placeholder="(0) 12345678"
                           required
                         />
@@ -199,8 +202,8 @@
         </div>
       </div>
     </section>
-    <script src="../../../resources/js/pages/login.js"></script>
-    <script type="module" src="../../assets/js/register.js"></script>
+    <script type="module" src="/resources/js/pages/login.js"></script>
+    <script type="module" src="../assets/js/button-login.js"></script>
+    <script type="module" src="/resources/js/pages/register.js"></script>
   </body>
 </html>
-
