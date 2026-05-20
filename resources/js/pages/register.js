@@ -32,9 +32,7 @@ if (buttonRegister) {
       buttonRegister.disabled = true;
 
       // Envia para /authentication/preregister
-      await requests
-        .setForm("formregister")
-        .post("/authentication/preregister");
+      await requests.setForm("register").post("/authentication/register");
 
       Swal.fire({
         icon: "success",
@@ -57,4 +55,11 @@ if (buttonRegister) {
       buttonRegister.textContent = originalText;
     }
   });
+}
+
+// Função auxiliar simples para capturar cookies no front-end
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(";").shift();
 }

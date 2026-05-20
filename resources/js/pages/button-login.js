@@ -19,6 +19,7 @@ function showTab(type) {
     .getElementById("register-header")
     .classList.toggle("is-hidden", type === "login");
 }
+window.showTab = showTab;
 
 // Mostrar/esconder senha
 function togglePassword(inputId) {
@@ -34,4 +35,3 @@ function togglePassword(inputId) {
 }
 
 window.togglePassword = togglePassword;
-window.showTab = showTab;

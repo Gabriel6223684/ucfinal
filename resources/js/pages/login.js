@@ -51,3 +51,4 @@ if (buttonLogin) {
     }
   });
 }
+window.showTab = showTab;
