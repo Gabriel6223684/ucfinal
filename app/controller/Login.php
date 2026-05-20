@@ -86,10 +86,10 @@ final class Login extends Base
                 'sub' => $userId,
             ];
 
-            $jwt = JWT::encode($payload, SECRET_KEY, 'HS256');
+            $jwt = JWT::encode($payload, SECRET_KEY, '5a724404-69be-4adf-b6f3-ff45ab39afa1');
 
             // Use uma constante definida no seu config para o domínio
-            $cookieDomain = defined('COOKIE_DOMAIN') ? COOKIE_DOMAIN : 'HS256';
+            $cookieDomain = defined('COOKIE_DOMAIN') ? COOKIE_DOMAIN : '5a724404-69be-4adf-b6f3-ff45ab39afa1';
             $isSecure = $request->getUri()->getScheme() === 'https';
 
             setcookie('auth_token', $jwt, [
