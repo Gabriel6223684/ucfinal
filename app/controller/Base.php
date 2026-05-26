@@ -1,8 +1,7 @@
 <?php
 
-declare(strict_types=1);
-
 namespace app\controller;
+declare(strict_types=1);
 
 use app\trait\Response;
 use app\trait\Template;

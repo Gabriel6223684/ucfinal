@@ -1,9 +1,7 @@
 <?php
 
-declare(strict_types=1);
-
 namespace app\controller;
-
+declare(strict_types=1);
 
 final class Home extends Base
 {

@@ -19,6 +19,26 @@
   </head>
 
   <body>
+    <div id="modal-login-required" class="modal is-active">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <div class="box has-text-centered">
+          <span class="icon is-large has-text-warning mb-3">
+            <i class="fas fa-exclamation-triangle fa-3x"></i>
+          </span>
+          <h3 class="title is-4">Acesso Restrito</h3>
+          <p class="subtitle is-6 mb-5">
+            Você precisa estar logado para visualizar seu perfil.
+          </p>
+
+          <div class="buttons is-centered">
+            <a href="login.html" class="button is-primary">
+              <i class="fas fa-sign-in-alt mr-2"></i> Fazer Login
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
     <section class="section">
       <div class="container">
         <div class="columns">
@@ -73,7 +93,7 @@
                       <label class="label">Full Name</label>
 
                       <div class="control">
-                        <input class="input" type="text" value="John Silva" />
+                        <input class="input" type="text" value="Nome" />
                       </div>
                     </div>
                   </div>
@@ -83,7 +103,7 @@
                       <label class="label">Date of Birth</label>
 
                       <div class="control">
-                        <input class="input" type="date" value="1990-01-01" />
+                        <input class="input" type="date" value="" />
                       </div>
                     </div>
                   </div>

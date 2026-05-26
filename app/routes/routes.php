@@ -1,5 +1,6 @@
 <?php
 
+namespace app\controller;
 declare(strict_types=1);
 
 $app->get('/', app\controller\Home::class . ':home')->add(app\middleware\Middleware::web());
@@ -17,4 +18,9 @@ $app->group('/usuario', function (Slim\Routing\RouteCollectorProxy $group) {
     $group->get('/detalhes', app\controller\User::class . ':details');
     $group->post('/insert', app\controller\User::class . ':insert');
     $group->post('/update', app\controller\User::class . ':update');
+});
+
+$app->group('/chat', function (Slim\Routing\RouteCollectorProxy $group) {
+    $group->get('/lista', app\controller\User::class . ':list');
+    $group->get('/conversa', app\controller\User::class . ':conversation');
 });

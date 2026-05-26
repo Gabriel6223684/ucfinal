@@ -1,14 +1,15 @@
 // main.js
-import { fetchData } from './services/apiConfig';
+import { fetchData } from "./services/apiConfig";
+import '../resources/css/main.css';
 
 // Exemplo de uso no front-end ao carregar a página
-document.addEventListener('DOMContentLoaded', async () => {
-    const dados = await fetchData();
-    
-    if (dados) {
-        console.log('Dados recebidos do back-end:', dados);
-        // Lógica para injetar os dados no HTML aqui...
-    }
+document.addEventListener("DOMContentLoaded", async () => {
+  const dados = await fetchData();
+
+  if (dados) {
+    console.log("Dados recebidos do back-end:", dados);
+    // Lógica para injetar os dados no HTML aqui...
+  }
 });
 
 // --- 1. Injeção de Estilo (CSS in JS) ---
@@ -100,7 +101,7 @@ async function renderHome() {
 
       <div class="field has-addons">
         <p class="control">
-          <input class="input" type="text" placeholder="Find a post" />
+          <input class="input" type="text" placeholder="Find a user" />
         </p>
         <p class="control">
           <button class="button">Search</button>
@@ -142,7 +143,7 @@ async function renderHome() {
 
 function renderChatList() {
   if (conversations.length === 0) {
-    return `<div style="padding: 20px; text-align: center;">Nenhuma conversa ainda</div>`;
+    return `<div style="padding: 20px; text-align: center;">No conversation yet</div>`;
   }
 
   return conversations
@@ -151,7 +152,7 @@ function renderChatList() {
     <div class="chat-item ${activeChat === c.id ? "active" : ""}" onclick="openChat(${c.id})" 
          style="padding: 15px; border-bottom: 1px solid #eee; cursor: pointer;">
       <div class="chat-item-name"><strong>${c.username || c.email}</strong></div>
-      <div class="chat-item-preview" style="font-size: 0.8rem; color: #666;">${c.lastMsg || "Iniciar conversa"}</div>
+      <div class="chat-item-preview" style="font-size: 0.8rem; color: #666;">${c.lastMsg || "Start conversation"}</div>
     </div>
   `,
     )
@@ -162,7 +163,7 @@ function renderEmptyState() {
   return `
     <div class="empty-state" style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%;">
       <h3>MINIMAL.</h3>
-      <p>Selecione uma conversa para começar</p>
+      <p>Select a conversation to start.</p>
     </div>
   `;
 }
@@ -172,7 +173,7 @@ async function openChat(receiverId) {
   if (typeof stopPolling === "function") stopPolling();
 
   const conv = conversations.find((c) => c.id === receiverId);
-  const name = conv?.username || conv?.email || "Usuário";
+  const name = conv?.username || conv?.email || "User";
 
   const main = document.getElementById("main-content");
   if (!main) return;
@@ -182,12 +183,12 @@ async function openChat(receiverId) {
       <strong>${name}</strong>
     </div>
     <div class="messages-area" id="messages-area" style="height: 400px; overflow-y: auto; padding: 20px;">
-      <div style="text-align:center;color:gray;">Carregando...</div>
+      <div style="text-align:center;color:gray;">Loading...</div>
     </div>
     <div class="message-input-bar" style="padding: 15px; display: flex; gap: 10px;">
-      <input id="msg-input" style="flex:1; padding: 8px;" placeholder="Mensagem..." 
+      <input id="msg-input" style="flex:1; padding: 8px;" placeholder="Menssage..." 
              onkeydown="if(event.key==='Enter') sendMsg(${receiverId})">
-      <button onclick="sendMsg(${receiverId})">Enviar</button>
+      <button onclick="sendMsg(${receiverId})">Submit</button>
     </div>
   `;
 

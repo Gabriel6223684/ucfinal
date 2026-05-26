@@ -57,3 +57,23 @@ document.addEventListener("DOMContentLoaded", () => {
   const savedTheme = localStorage.getItem("theme") || "light";
   setTheme(savedTheme);
 });
+
+// Exemplo de verificação: simula se o usuário está logado (mude para sua lógica real)
+// Geralmente você checa se existe um token: !!localStorage.getItem('userToken')
+const usuarioEstaLogado = false;
+
+document.addEventListener("DOMContentLoaded", () => {
+  const modal = document.getElementById("modal-login-required");
+  const mainContent = document.querySelector(".section"); // Seleciona o conteúdo da página
+
+  if (usuarioEstaLogado) {
+    // Se estiver logado, remove a modal e mostra a página normalmente
+    modal.classList.remove("is-active");
+  } else {
+    // Se NÃO estiver logado, garante que a modal apareça e esconde os dados ao fundo
+    modal.classList.add("is-active");
+    if (mainContent) {
+      mainContent.style.display = "none";
+    }
+  }
+});
