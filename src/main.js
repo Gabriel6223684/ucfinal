@@ -19,6 +19,7 @@ styleSheet.innerText = `
     --bg-color: #ffffff;
     --accent: #000000;
     --border: #f0f0f0;
+    --text-main: #111111;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
