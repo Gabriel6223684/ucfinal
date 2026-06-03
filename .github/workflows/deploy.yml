@@ -1,0 +1,44 @@
+name: Deploy para GitHub Pages
+
+on:
+  push:
+    branches:
+      - main # Mude para 'master' se a sua branch principal tiver esse nome
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  deploy_site:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20" # Escolha a versão do Node do seu projeto
+          cache: "npm"
+
+      - name: Instalar dependências
+        run: npm ci # Use 'npm install' se preferir
+
+      - name: Build do projeto
+        run: npm run build
+
+      - name: Upload dos artefatos
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Altere 'dist' abaixo se o seu framework usar outro diretório (ex: build, out)
+          path: "./dist"
+
+      - name: Deploy no GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
