@@ -1,8 +1,11 @@
 {
-  "resources/js/app.js": {
-    "file": "assets/app-B96x2p4r.js",
-    "name": "app",
-    "src": "resources/js/app.js",
-    "isEntry": true
+  "index.html": {
+    "file": "assets/index-qSYKWIE8.js",
+    "name": "index",
+    "src": "index.html",
+    "isEntry": true,
+    "css": [
+      "assets/index-Ch_09g4-.css"
+    ]
   }
 }
