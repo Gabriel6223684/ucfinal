@@ -1,11 +1,13 @@
 <?php
 
-namespace app\controller;
 declare(strict_types=1);
+
+namespace app\controller;
 
 $app->get('/', app\controller\Home::class . ':home')->add(app\middleware\Middleware::web());
 $app->get('/home', app\controller\Home::class . ':home')->add(app\middleware\Middleware::web());
 $app->get('/login', app\controller\Login::class . ':login')->add(app\middleware\Middleware::web());
+$app->get('/profile', app\controller\Profile::class . ':profile')->add(app\middleware\Middleware::web());
 
 $app->group('/authentication', function (Slim\Routing\RouteCollectorProxy $group) {
     $group->post('/auth', app\controller\Login::class . ':authenticate'); // ← /authentication/auth

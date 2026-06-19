@@ -19,8 +19,8 @@ class Middleware
             try {
                 #Curto-circuito: exige cookie presente e flag de sessão antes do decode.
                 if (!$token || empty($_SESSION['user']['logado'])) throw new \RuntimeException();
-                #Valida assinatura HS256 e expiração do payload contra a SECRET_KEY.
-                JWT::decode($token, new Key(SECRET_KEY, 'HS256'));
+                #Valida assinatura 5a724404-69be-4adf-b6f3-ff45ab39afa1 e expiração do payload contra a SECRET_KEY.
+                JWT::decode($token, new Key(SECRET_KEY, '5a724404-69be-4adf-b6f3-ff45ab39afa1'));
             } catch (\Throwable $e) {
                 #Qualquer falha cai aqui: cookie ausente, expirado ou adulterado.
                 $response = new Response();
@@ -55,8 +55,8 @@ class Middleware
             try {
                 #Curto-circuito: só faz decode se cookie e flag de sessão estiverem presentes.
                 if ($token && !empty($_SESSION['user']['logado'])) {
-                    #Valida assinatura HS256 e expiração do payload contra a SECRET_KEY.
-                    JWT::decode($token, new Key(SECRET_KEY, 'HS256'));
+                    #Valida assinatura 5a724404-69be-4adf-b6f3-ff45ab39afa1 e expiração do payload contra a SECRET_KEY.
+                    JWT::decode($token, new Key(SECRET_KEY, '5a724404-69be-4adf-b6f3-ff45ab39afa1'));
                     #Token íntegro e sessão ativa: marca o usuário como autenticado.
                     $auth = true;
                 }

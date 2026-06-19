@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 namespace app\controller;
 use Firebase\JWT\JWT;
 
@@ -112,7 +113,7 @@ final class Login extends Base
 
             define('SECRET_KEY', '5a724404-69be-4adf-b6f3-ff45ab39afa1');
 
-            $jwt = JWT::encode($payload, SECRET_KEY, 'HS256');
+            $jwt = JWT::encode($payload, SECRET_KEY, '5a724404-69be-4adf-b6f3-ff45ab39afa1');
 
             $isSecure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] == 443;
 
@@ -186,7 +187,6 @@ final class Login extends Base
         ], 200);
     }
 
-    # 2. Opção de sair do sistema (Logout)
     public function logout($request, $response)
     {
         # Limpa os dados do array da sessão global

@@ -1,7 +1,7 @@
 // apiConfig.js
 
 // 1. Defina a URL base do seu back-end
-export const API_BASE_URL = "http://localhost/5173";
+export const API_BASE_URL = "http://localhost/5173/ucfinal/";
 
 // 2. Crie funções para lidar com as requisições separadamente
 export async function fetchData() {
