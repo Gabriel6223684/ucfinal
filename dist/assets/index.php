@@ -17,6 +17,6 @@ $app->addBodyParsingMiddleware();
 $app->addErrorMiddleware(true, true, true);
 
 // Rotas
-require __DIR__ . '/../app/routes/routes.php';
+require __DIR__ . '/../app/routes.php';
 
 $app->run();

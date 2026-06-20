@@ -1,4 +1,4 @@
-(function(){let e=document.createElement(`link`).relList;if(e&&e.supports&&e.supports(`modulepreload`))return;for(let e of document.querySelectorAll(`link[rel="modulepreload"]`))n(e);new MutationObserver(e=>{for(let t of e)if(t.type===`childList`)for(let e of t.addedNodes)e.tagName===`LINK`&&e.rel===`modulepreload`&&n(e)}).observe(document,{childList:!0,subtree:!0});function t(e){let t={};return e.integrity&&(t.integrity=e.integrity),e.referrerPolicy&&(t.referrerPolicy=e.referrerPolicy),e.crossOrigin===`use-credentials`?t.credentials=`include`:e.crossOrigin===`anonymous`?t.credentials=`omit`:t.credentials=`same-origin`,t}function n(e){if(e.ep)return;e.ep=!0;let n=t(e);fetch(e.href,n)}})();var e=`http://localhost/5173`;async function t(){try{let t=await fetch(`${e}/dados`);if(!t.ok)throw Error(`Erro na requisição`);return await t.json()}catch(e){console.error(`Erro ao conectar com o back-end:`,e)}}document.addEventListener(`DOMContentLoaded`,async()=>{let e=await t();e&&console.log(`Dados recebidos do back-end:`,e)});var n=document.createElement(`style`);n.innerText=`
+(function(){let e=document.createElement(`link`).relList;if(e&&e.supports&&e.supports(`modulepreload`))return;for(let e of document.querySelectorAll(`link[rel="modulepreload"]`))n(e);new MutationObserver(e=>{for(let t of e)if(t.type===`childList`)for(let e of t.addedNodes)e.tagName===`LINK`&&e.rel===`modulepreload`&&n(e)}).observe(document,{childList:!0,subtree:!0});function t(e){let t={};return e.integrity&&(t.integrity=e.integrity),e.referrerPolicy&&(t.referrerPolicy=e.referrerPolicy),e.crossOrigin===`use-credentials`?t.credentials=`include`:e.crossOrigin===`anonymous`?t.credentials=`omit`:t.credentials=`same-origin`,t}function n(e){if(e.ep)return;e.ep=!0;let n=t(e);fetch(e.href,n)}})();var e=`http://localhost/5173/ucfinal/`;async function t(){try{let t=await fetch(`${e}/dados`);if(!t.ok)throw Error(`Erro na requisição`);return await t.json()}catch(e){console.error(`Erro ao conectar com o back-end:`,e)}}document.addEventListener(`DOMContentLoaded`,async()=>{let e=await t();e&&console.log(`Dados recebidos do back-end:`,e)});var n=document.createElement(`style`);n.innerText=`
   :root {
     --bg-color: #ffffff;
     --accent: #000000;
@@ -64,8 +64,8 @@
         </div>
 
       <div style="display: flex; gap: 20px; align-items: center;">
-        <a href="../app/view/pages/login.html" class="login-btn">Log in</a>
-        <a href="../app/view/pages/profile.html" class="user-profile-link">
+        <a href="/login" class="login-btn">Log in</a>
+        <a href="/profile" class="user-profile-link">
           <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
             <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
             <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>

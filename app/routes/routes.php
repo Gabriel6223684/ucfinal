@@ -10,7 +10,7 @@ $app->get('/login', app\controller\Login::class . ':login')->add(app\middleware\
 $app->get('/profile', app\controller\Profile::class . ':profile')->add(app\middleware\Middleware::web());
 
 $app->group('/authentication', function (Slim\Routing\RouteCollectorProxy $group) {
-    $group->post('/auth', app\controller\Login::class . ':authenticate'); // ← /authentication/auth
+    $group->post('/auth', app\controller\Login::class . ':authenticate');
     $group->post('/register', app\controller\register::class . ':register');
 });
 
