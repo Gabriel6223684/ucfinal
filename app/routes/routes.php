@@ -2,27 +2,34 @@
 
 declare(strict_types=1);
 
-namespace app\controller;
+/** @var \Slim\App $app */
 
-$app->get('/', app\controller\Home::class . ':home')->add(app\middleware\Middleware::web());
-$app->get('/home', app\controller\Home::class . ':home')->add(app\middleware\Middleware::web());
-$app->get('/login', app\controller\Login::class . ':login')->add(app\middleware\Middleware::web());
-$app->get('/profile', app\controller\Profile::class . ':profile')->add(app\middleware\Middleware::web());
+// Usando caminhos absolutos com a barra inicial '\' para não ter erro de interpretação
+use Slim\Routing\RouteCollectorProxy;
 
-$app->group('/authentication', function (Slim\Routing\RouteCollectorProxy $group) {
-    $group->post('/auth', app\controller\Login::class . ':authenticate');
-    $group->post('/register', app\controller\register::class . ':register');
+// Rotas Principais
+$app->get('/', \app\controller\Home::class . ':home')->add(\app\middleware\Middleware::web());
+$app->get('/home', \app\controller\Home::class . ':home')->add(\app\middleware\Middleware::web());
+$app->get('/login', \app\controller\Login::class . ':login')->add(\app\middleware\Middleware::web());
+$app->get('/profile', \app\controller\Profile::class . ':profile')->add(\app\middleware\Middleware::web());
+
+// Grupo de Autenticação
+$app->group('/authentication', function (RouteCollectorProxy $group) {
+    $group->post('/auth', \app\controller\Login::class . ':authenticate');
+    $group->post('/register', \app\controller\Login::class . ':register');
 });
 
-$app->group('/usuario', function (Slim\Routing\RouteCollectorProxy $group) {
-    $group->get('/lista', app\controller\User::class . ':list');
-    $group->get('/detalhes/{id}', app\controller\User::class . ':details');
-    $group->get('/detalhes', app\controller\User::class . ':details');
-    $group->post('/insert', app\controller\User::class . ':insert');
-    $group->post('/update', app\controller\User::class . ':update');
+// Grupo de Usuário
+$app->group('/usuario', function (RouteCollectorProxy $group) {
+    $group->get('/lista', \app\controller\User::class . ':list');
+    $group->get('/detalhes/{id}', \app\controller\User::class . ':details');
+    $group->get('/detalhes', \app\controller\User::class . ':details');
+    $group->post('/insert', \app\controller\User::class . ':insert');
+    $group->post('/update', \app\controller\User::class . ':update');
 });
 
-$app->group('/chat', function (Slim\Routing\RouteCollectorProxy $group) {
-    $group->get('/lista', app\controller\User::class . ':list');
-    $group->get('/conversa', app\controller\User::class . ':conversation');
+// Grupo de Chat
+$app->group('/chat', function (RouteCollectorProxy $group) {
+    $group->get('/lista', \app\controller\User::class . ':list');
+    $group->get('/conversa', \app\controller\User::class . ':conversation');
 });
