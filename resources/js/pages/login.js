@@ -35,7 +35,7 @@ if (buttonLogin) {
         timer: 1500,
         showConfirmButton: false,
         willClose: () => {
-          window.location.href = "/dashboard";
+          window.location.href = "/home";
         },
       });
     } catch (e) {
@@ -51,4 +51,4 @@ if (buttonLogin) {
     }
   });
 }
-window.showTab = showTab;
+//window.showTab = showTab;

@@ -1,15 +1,15 @@
-// apiConfig.js
+export const BASE_URL = "http://localhost:8080/ucfinal";
 
-// 1. Defina a URL base do seu back-end
-export const API_BASE_URL = "http://localhost/5173/ucfinal/";
-
-// 2. Crie funções para lidar com as requisições separadamente
 export async function fetchData() {
   try {
-    const response = await fetch(`${API_BASE_URL}/dados`);
-    if (!response.ok) throw new Error("Erro na requisição");
+    const response = await fetch(`${BASE_URL}/dados`);
+    
+    if (!response.ok) {
+      throw new Error(`Erro na requisição: ${response.status}`);
+    }
+    
     return await response.json();
   } catch (error) {
-    console.error("Erro ao conectar com o back-end:", error);
+    throw error; 
   }
 }

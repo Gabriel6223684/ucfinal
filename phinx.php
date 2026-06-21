@@ -9,7 +9,7 @@ $dotenv->safeLoad();
 
 return [
     'paths' => [
-        'migrations' => __DIR__ . '/app/database/Migration',
+        'migrations' => __DIR__ . '/app/database/migration',
         'seeds' => __DIR__ . '/database/seeds',
     ],
     'environments' => [
@@ -17,10 +17,10 @@ return [
         'default_environment' => 'default',
         'default' => [
             'adapter' => 'pgsql',
-            'host' => $_ENV['DB_HOST'] ?? 'localhost',
+            'host' => $_ENV['DB_HOST'] ?? 'app_postgres',
             'name' => $_ENV['DB_NAME'] ?? 'hubone',
             'user' => $_ENV['DB_USER'] ?? 'postgres',
-            'pass' => $_ENV['DB_PASSWORD'] ?? 'senac',
+            'pass' => $_ENV['DB_PASSWORD'] ?? '2009',
             'port' => $_ENV['DB_PORT'] ?? '5432',
             'charset' => 'utf8',
             'collation' => null,

@@ -2,13 +2,10 @@
 import { fetchData } from "./services/apiConfig";
 import '../resources/css/main.css';
 
-// Exemplo de uso no front-end ao carregar a página
 document.addEventListener("DOMContentLoaded", async () => {
   const dados = await fetchData();
 
   if (dados) {
-    console.log("Dados recebidos do back-end:", dados);
-    // Lógica para injetar os dados no HTML aqui...
   }
 });
 

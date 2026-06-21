@@ -44,7 +44,7 @@ $app->addCommands([
     new Command\LatestCommand($dependencyFactory),
     new Command\SyncMetadataCommand($dependencyFactory),
     new Command\VersionCommand($dependencyFactory),
-    new MakeMigrationCommand(),
+    new MakeMigrationCommand($dependencyFactory),
 ]);
 
 $app->run();

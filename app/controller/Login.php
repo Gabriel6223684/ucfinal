@@ -1,7 +1,9 @@
 <?php
 
 declare(strict_types=1);
+
 namespace app\controller;
+
 use Firebase\JWT\JWT;
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -48,8 +50,8 @@ final class Login extends Base
             # Define o valor que será procurado nos três campos
             $placeholder = $qb->createNamedParameter($login);
 
-            # Monta a cláusula WHERE com três condições ligadas por OR:
-            $qb->where('login_email = ' . $placeholder)
+            # Monta a cláusula WHERE com condições ligadas por OR:
+            $qb->where('email = ' . $placeholder)
                 ->orWhere('tel = ' . $placeholder);
 
             # Executa a query e busca um único registro
@@ -58,8 +60,8 @@ final class Login extends Base
             # Hash bcrypt pré-computado e inválido, usado quando o usuário não existe
             $dummyHash = '$2y$10$CwTycUXWue0Thq9StjUM0uJ8.k3.kK1m3Sv7lJ1uG9N9Yvb.MqYsa';
 
-            # Sempre executa password_verify, mesmo sem usuário, para manter tempo de resposta constante
-            $login_passValida = password_verify($login_pass, $user['logn_pass'] ?? $dummyHash);
+            # CORRIGIDO: Alterado de 'logn_pass' para 'senha' conforme banco de dados
+            $login_passValida = password_verify($login_pass, $user['senha'] ?? $dummyHash);
 
             # Falha de autenticação: mensagem genérica + contador de tentativas
             if (!$user || !$login_passValida) {
@@ -77,12 +79,12 @@ final class Login extends Base
             # Regenera o ID da sessão para mitigar session fixation
             session_regenerate_id(true);
 
-            # Renova o hash da senha se o algoritmo/custo padrão tiver mudado
-            if (password_needs_rehash($user['login_pass'], PASSWORD_DEFAULT)) {
+            # Renova o hash da senha se o algoritmo/custo padrão tiver mudado (Corrigido para 'senha')
+            if (password_needs_rehash($user['senha'], PASSWORD_DEFAULT)) {
                 \app\database\DB::connection()->update(
                     'users',
                     [
-                        'login_pass'         => password_hash($login_pass, PASSWORD_DEFAULT),
+                        'senha'         => password_hash($login_pass, PASSWORD_DEFAULT),
                         'atualizado_em' => date('Y-m-d H:i:s'),
                     ],
                     ['id' => $user['id']],
@@ -90,7 +92,7 @@ final class Login extends Base
             }
 
             # Remove o hash da senha antes de gravar o usuário na sessão
-            unset($user['login_pass']);
+            unset($user['senha']);
 
             # Persiste o usuário autenticado na sessão
             $_SESSION['user'] = $user;
@@ -106,21 +108,18 @@ final class Login extends Base
                 'nbf' => $now,
                 'exp' => $now + $lifetime,
                 'sub' => (string) $user['id'],
-                #'iss' => HOST,
-                #'aud' => HOST,
                 'jti' => $jti,
             ];
 
             define('SECRET_KEY', '5a724404-69be-4adf-b6f3-ff45ab39afa1');
 
-            $jwt = JWT::encode($payload, SECRET_KEY, '5a724404-69be-4adf-b6f3-ff45ab39afa1');
+            $jwt = JWT::encode($payload, SECRET_KEY, 'HS256');
 
             $isSecure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] == 443;
 
             setcookie('auth_token', $jwt, [
                 'expires'  => time() + $lifetime,
                 'path'     => '/',
-                'secure'   => true,
                 'secure'   => $isSecure,
                 'httponly' => true,
                 'samesite' => 'Lax',
@@ -144,55 +143,75 @@ final class Login extends Base
             return $this->json($response, ['status' => false, 'msg' => 'Não foi possível concluir o login. Tente novamente.', 'id' => 0], 500);
         } catch (\Throwable $e) {
             error_log('[auth][GERAL] ' . $e->getMessage());
-            return $this->json($response, ['status' => false, 'msg' => 'Erro inesperado. Tente novamente: ' . $e->getMessage(), 'id' => 0], 500);
+            return $this->json($response, ['status' => false, 'msg' => 'Erro inesperado. Tente novamente.', 'id' => 0], 500);
         }
     }
 
     public function Register($request, $response)
     {
-        $form = $request->getParsedBody();
-        $name      = $form['name'] ?? null;
-        $reg_pass     = $form['reg_pass'] ?? null;
-        $reg_email     = $form['reg_email'] ?? null;
-        $tel  = $form['tel'] ?? null;
+        try {
+            $form = $request->getParsedBody();
+            $name      = $form['name'] ?? null;
+            $reg_pass     = $form['reg_pass'] ?? null;
+            $reg_email     = $form['reg_email'] ?? null;
+            $tel  = $form['tel'] ?? null;
 
-        $DataUser = [
-            'name'      => $name,
-            'reg_pass'     => password_hash($reg_pass, PASSWORD_DEFAULT)
-        ];
+            if (!$name || !$reg_pass || !$reg_email) {
+                return $this->json($response, ['status' => false, 'msg' => 'Preencha todos os campos obrigatórios!'], 400);
+            }
 
-        # Insere os dados no database com o Doctrine e recupera o ID corretamente via conexão
-        \app\database\DB::connection()->insert('users', $DataUser);
-        $id_usuario = \app\database\DB::connection()->lastInsertId();
+            // CORRIGIDO: Nomes das chaves alterados para bater com a migration ('nome', 'senha', 'email', 'tel')
+            $DataUser = [
+                'nome'          => $name,
+                'email'         => $reg_email,
+                'tel'           => $tel ?? '',
+                'senha'         => password_hash($reg_pass, PASSWORD_DEFAULT),
+                'ativo'         => true,
+                'administrador' => false,
+                'criado_em'     => date('Y-m-d H:i:s'),
+                'atualizado_em' => date('Y-m-d H:i:s')
+            ];
 
-        # Insere os dados do email do usuário na base.
-        $DataEmail = [
-            'id_usuario' => $id_usuario,
-            'tipo' => 'EMAIL',
-            'contato' => $reg_email
-        ];
-        \app\database\DB::connection()->insert('contact', $DataEmail);
+            # Insere os dados no database com o Doctrine e recupera o ID corretamente via conexão
+            \app\database\DB::connection()->insert('users', $DataUser);
+            $id_usuario = \app\database\DB::connection()->lastInsertId();
 
-        # Insere os dados do telefone do usuário na base.
-        $DataTel = [
-            'id_usuario' => $id_usuario,
-            'tipo' => 'TELEFONE',
-            'contato' => $tel
-        ];
-        \app\database\DB::connection()->insert('contact', $DataTel);
+            # CORRIGIDO: Inserindo na tabela 'contacts' com as colunas corretas ('user_id', 'tipo', 'valor')
+            if ($reg_email) {
+                $DataEmail = [
+                    'user_id' => $id_usuario,
+                    'tipo'    => 'EMAIL',
+                    'valor'   => $reg_email
+                ];
+                \app\database\DB::connection()->insert('contacts', $DataEmail);
+            }
 
-        return $this->json($response, [
-            'status' => true,
-            'msg' => 'Cadastrado realizado com sucesso!'
-        ], 200);
+            if ($tel) {
+                $DataTel = [
+                    'user_id' => $id_usuario,
+                    'tipo'    => 'TELEFONE',
+                    'valor'   => $tel
+                ];
+                \app\database\DB::connection()->insert('contacts', $DataTel);
+            }
+
+            return $this->json($response, [
+                'status' => true,
+                'msg'    => 'Cadastro realizado com sucesso!'
+            ], 200);
+        } catch (\Throwable $e) {
+            error_log('[Register][ERRO] ' . $e->getMessage());
+            return $this->json($response, [
+                'status' => false,
+                'msg'    => 'Erro interno ao realizar cadastro: ' . $e->getMessage()
+            ], 500);
+        }
     }
 
     public function logout($request, $response)
     {
-        # Limpa os dados do array da sessão global
         $_SESSION = [];
 
-        # Se desejar destruir o cookie da sessão PHP completamente
         if (ini_get("session.use_cookies")) {
             $params = session_get_cookie_params();
             setcookie(
@@ -206,12 +225,10 @@ final class Login extends Base
             );
         }
 
-        # Destrói a sessão no servidor
         if (session_status() === PHP_SESSION_ACTIVE) {
             session_destroy();
         }
 
-        # Invalida/limpa o cookie JWT do lado do cliente
         setcookie('auth_token', '', [
             'expires'  => time() - 3600,
             'path'     => '/',
@@ -220,7 +237,6 @@ final class Login extends Base
             'samesite' => 'Lax',
         ]);
 
-        # Redireciona o cliente de volta para a tela de login
         return $response->withHeader('Location', '/login')->withStatus(302);
     }
 }

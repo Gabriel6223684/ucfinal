@@ -1,209 +1,146 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sign In</title>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-    />
-    <link rel="stylesheet" href="../assets/css/login.css" />
-    <!-- JQuery -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-    <!-- Plugin Mask -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
-  </head>
-  <body>
-    <section class="section">
-      <div class="container">
-        <div class="columns is-centered">
-          <div class="column is-4-desktop is-6-tablet">
-            <div class="auth-container">
-              <div class="tabs is-centered is-toggle is-toggle-rounded">
-                <ul>
-                  <li id="login-tab" class="is-active">
-                    <a onclick="showTab('login')">Login</a>
-                  </li>
-                  <li id="register-tab">
-                    <a onclick="showTab('register')">Register</a>
-                  </li>
-                </ul>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link rel="stylesheet" href="../assets/css/login.css" />
+  <!-- JQuery -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <!-- Plugin Mask -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+</head>
+
+<body>
+  <section class="section">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-4-desktop is-6-tablet">
+          <div class="auth-container">
+            <div class="tabs is-centered is-toggle is-toggle-rounded">
+              <ul>
+                <li id="login-tab" class="is-active">
+                  <a onclick="showTab('login')">Login</a>
+                </li>
+                <li id="register-tab">
+                  <a onclick="showTab('register')">Register</a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="box">
+              <div id="login-header" class="has-text-centered mb-5">
+                <h1 class="title is-4">Login</h1>
+                <p class="subtitle is-6">Access your account</p>
+              </div>
+              <div id="register-header" class="has-text-centered mb-5 is-hidden">
+                <h1 class="title is-4">Register</h1>
+                <p class="subtitle is-6">create your free account</p>
               </div>
 
-              <div class="box">
-                <div id="login-header" class="has-text-centered mb-5">
-                  <h1 class="title is-4">Login</h1>
-                  <p class="subtitle is-6">Access your account</p>
-                </div>
-                <div
-                  id="register-header"
-                  class="has-text-centered mb-5 is-hidden"
-                >
-                  <h1 class="title is-4">Register</h1>
-                  <p class="subtitle is-6">create your free account</p>
-                </div>
+              <hr />
 
-                <hr />
-
-                <div id="login-content" class="tab-content is-active">
-                  <!-- Form login -->
-                  <form id="formlogin">
-                    <div class="field">
-                      <label class="label">Email</label>
-                      <div class="control has-icons-left">
-                        <input
-                          class="input"
-                          type="email"
-                          id="login_email"
-                          name="login"
-                          placeholder="you@email.com"
-                          required
-                        />
-                        <span class="icon is-small is-left"
-                          ><i class="fas fa-envelope"></i
-                        ></span>
-                      </div>
-                    </div>
-
-                    <div class="field">
-                      <label class="label">Password</label>
-                      <div class="control has-icons-left has-icons-right">
-                        <input
-                          class="input"
-                          type="password"
-                          id="login_pass"
-                          name="senha"
-                          placeholder="********"
-                          required
-                        />
-                        <span class="icon is-small is-left"
-                          ><i class="fas fa-lock"></i
-                        ></span>
-                        <span
-                          class="icon is-small is-right"
-                          onclick="togglePassword('login_pass')"
-                        >
-                          <i class="fas fa-eye" id="login-pass-icon"></i>
-                        </span>
-                      </div>
-                    </div>
-
-                    <button
-                      type="button"
-                      id="login"
-                      class="button is-primary is-fullwidth mt-5"
-                    >
-                      Entrar
-                    </button>
-                  </form>
-                  <div class="box">
-                    <div id="login-content" class="tab-content is-active">
-                      <p class="has-text-centered is-size-7 mt-4">
-                        <a href="./forgot-password.html">Forgot Password?</a>
-                      </p>
+              <div id="login-content" class="tab-content is-active">
+                <!-- Form login -->
+                <form id="formlogin">
+                  <div class="field">
+                    <label class="label">Email</label>
+                    <div class="control has-icons-left">
+                      <input class="input" type="email" id="login_email" name="login" placeholder="you@email.com"
+                        required />
+                      <span class="icon is-small is-left"><i class="fas fa-envelope"></i></span>
                     </div>
                   </div>
+
+                  <div class="field">
+                    <label class="label">Password</label>
+                    <div class="control has-icons-left has-icons-right">
+                      <input class="input" type="password" id="login_pass" name="senha" placeholder="********"
+                        required />
+                      <span class="icon is-small is-left"><i class="fas fa-lock"></i></span>
+                      <span class="icon is-small is-right" onclick="togglePassword('login_pass')">
+                        <i class="fas fa-eye" id="login-pass-icon"></i>
+                      </span>
+                    </div>
+                  </div>
+
+                  <button type="button" id="login" class="button is-primary is-fullwidth mt-5">
+                    Entrar
+                  </button>
+                </form>
+                <div class="box">
+                  <div id="login-content" class="tab-content is-active">
+                    <p class="has-text-centered is-size-7 mt-4">
+                      <a href="./forgot-password.html">Forgot Password?</a>
+                    </p>
+                  </div>
                 </div>
+              </div>
 
-                <div id="register-content" class="tab-content">
-                  <form id="formregister">
-                    <div class="field">
-                      <label class="label">Name</label>
-                      <div class="control has-icons-left">
-                        <input
-                          class="input"
-                          type="text"
-                          id="nome"
-                          name="nome"
-                          placeholder="Full name or company name"
-                          required
-                        />
-                        <span class="icon is-small is-left"
-                          ><i class="fas fa-user"></i
-                        ></span>
-                      </div>
+              <div id="register-content" class="tab-content">
+                <form id="formregister">
+                  <div class="field">
+                    <label class="label">Name</label>
+                    <div class="control has-icons-left">
+                      <input class="input" type="text" id="nome" name="nome" placeholder="Full name or company name"
+                        required />
+                      <span class="icon is-small is-left"><i class="fas fa-user"></i></span>
                     </div>
+                  </div>
 
-                    <div class="field">
-                      <label class="label">Email</label>
-                      <div class="control has-icons-left">
-                        <input
-                          class="input"
-                          type="email"
-                          id="reg_email"
-                          name="email"
-                          placeholder="contact@email.com"
-                          required
-                        />
-                        <span class="icon is-small is-left"
-                          ><i class="fas fa-envelope"></i
-                        ></span>
-                      </div>
+                  <div class="field">
+                    <label class="label">Email</label>
+                    <div class="control has-icons-left">
+                      <input class="input" type="email" id="reg_email" name="email" placeholder="contact@email.com"
+                        required />
+                      <span class="icon is-small is-left"><i class="fas fa-envelope"></i></span>
                     </div>
+                  </div>
 
-                    <div class="field">
-                      <label class="label">Phone Number</label>
-                      <div class="control has-icons-left">
-                        <input
-                          class="input"
-                          type="tel"
-                          id="tel"
-                          name="tel"
-                          placeholder="(0) 12345678"
-                          required
-                        />
-                        <span class="icon is-small is-left"
-                          ><i class="fa-solid fa-phone"></i>
-                        </span>
-                      </div>
+                  <div class="field">
+                    <label class="label">Phone Number</label>
+                    <div class="control has-icons-left">
+                      <input class="input" type="tel" id="tel" name="tel" placeholder="(0) 12345678" required />
+                      <span class="icon is-small is-left"><i class="fa-solid fa-phone"></i>
+                      </span>
                     </div>
+                  </div>
 
-                    <div class="field">
-                      <label class="label">Password</label>
-                      <div class="control has-icons-left has-icons-right">
-                        <input
-                          class="input"
-                          type="password"
-                          id="reg_pass"
-                          name="reg_pass"
-                          placeholder="Minimum 8 characters"
-                          required
-                        />
-                        <span class="icon is-small is-left"
-                          ><i class="fas fa-lock"></i
-                        ></span>
-                        <span
-                          class="icon is-small is-right"
-                          onclick="togglePassword('reg_pass')"
-                        >
-                          <i class="fas fa-eye" id="reg-pass-icon"></i>
-                        </span>
-                      </div>
+                  <div class="field">
+                    <label class="label">Password</label>
+                    <div class="control has-icons-left has-icons-right">
+                      <input class="input" type="password" id="reg_pass" name="reg_pass"
+                        placeholder="Minimum 8 characters" required />
+                      <span class="icon is-small is-left"><i class="fas fa-lock"></i></span>
+                      <span class="icon is-small is-right" onclick="togglePassword('reg_pass')">
+                        <i class="fas fa-eye" id="reg-pass-icon"></i>
+                      </span>
                     </div>
+                  </div>
 
-                    <button
-                      type="button"
-                      id="register"
-                      class="button is-link is-fullwidth mt-5"
-                    >
-                      Create Account
-                    </button>
-                  </form>
-                </div>
+                  <button type="button" id="register" class="button is-link is-fullwidth mt-5">
+                    Create Account
+                  </button>
+                </form>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
-    <script type="module" src="/resources/js/pages/login.js"></script>
-    <script type="module" src="/resources/js/pages/button-login.js"></script>
-    <script type="module" src="/resources/js/pages/register.js"></script>
-  </body>
+    </div>
+  </section>
+  <script type="module" src="/resources/js/pages/login.js"></script>
+  <script type="module" src="/resources/js/pages/button-login.js"></script>
+  <script type="module" src="/resources/js/pages/register.js"></script>
+  <script>
+    $(document).ready(function () {
+      $("#tel").mask("(00) 00000-0000");
+    });
+  </script>
+</body>
+
 </html>
