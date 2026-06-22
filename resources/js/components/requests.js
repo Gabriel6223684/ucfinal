@@ -1,6 +1,6 @@
 export default class Requests {
   constructor({
-    baseUrl = "",
+    baseUrl = "http://localhost:8080/ucfinal",
     token = null,
     credentials = "same-origin",
   } = {}) {

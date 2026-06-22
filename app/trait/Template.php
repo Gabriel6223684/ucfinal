@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Trait;
+namespace app\Trait;
 
 use Slim\Views\Twig;
 use Twig\TwigFunction;

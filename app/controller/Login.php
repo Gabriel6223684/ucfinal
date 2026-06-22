@@ -6,8 +6,6 @@ namespace app\controller;
 
 use Firebase\JWT\JWT;
 
-require_once __DIR__ . '/../vendor/autoload.php';
-
 final class Login extends Base
 {
     public function login($request, $response)
@@ -20,8 +18,10 @@ final class Login extends Base
                 ->withHeader('Content-Type', 'text/html')
                 ->withStatus(200);
         } catch (\Exception $e) {
-            error_log('[login][VIEW] ' . $e->getMessage());
-            return $this->json($response, ['status' => false, 'msg' => 'Erro ao carregar a página.'], 500);
+            return $this->json($response, [
+                'status' => false,
+                'msg' => $e->getMessage()
+            ], 500);
         }
     }
 
@@ -29,8 +29,8 @@ final class Login extends Base
     {
         # Recupera as credenciais enviadas no corpo da requisição
         $formlogin = $request->getParsedBody();
-        $login = $formlogin['login_email'] ?? null;
-        $login_pass = $formlogin['login_pass'] ?? null;
+        $login = $formlogin['login'] ?? null;
+        $login_pass = $formlogin['senha'] ?? null;
 
         # Bloqueia se algum campo veio vazio
         if (is_null($login) || is_null($login_pass)) {
@@ -151,9 +151,9 @@ final class Login extends Base
     {
         try {
             $form = $request->getParsedBody();
-            $name      = $form['name'] ?? null;
+            $name = $form['nome'] ?? null;
+            $reg_email = $form['email'] ?? null;
             $reg_pass     = $form['reg_pass'] ?? null;
-            $reg_email     = $form['reg_email'] ?? null;
             $tel  = $form['tel'] ?? null;
 
             if (!$name || !$reg_pass || !$reg_email) {

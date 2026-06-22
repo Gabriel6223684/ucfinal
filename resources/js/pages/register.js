@@ -23,7 +23,9 @@ if (buttonRegister) {
       return;
     }
 
-    const requests = new Request();
+    const requests = new Request({
+      baseUrl: "http://localhost:8080/ucfinal",
+    });
     const originalText = buttonRegister.textContent;
 
     try {

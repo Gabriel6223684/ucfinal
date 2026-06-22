@@ -5,8 +5,8 @@ const buttonLogin = document.getElementById("login");
 
 if (buttonLogin) {
   buttonLogin.addEventListener("click", async () => {
-    const login = document.getElementById("login-email")?.value?.trim();
-    const senha = document.getElementById("login-pass")?.value?.trim();
+    const login = document.getElementById("login_email")?.value?.trim();
+    const senha = document.getElementById("login_pass")?.value?.trim();
 
     if (!login || !senha) {
       Swal.fire({
@@ -18,7 +18,9 @@ if (buttonLogin) {
       return;
     }
 
-    const requests = new Requests();
+    const requests = new Requests({
+      baseUrl: "http://localhost:8080/ucfinal",
+    });
     const originalText = buttonLogin.textContent;
 
     try {
@@ -27,7 +29,7 @@ if (buttonLogin) {
 
       const data = await requests
         .setForm("formlogin")
-        .post("/authentication/authenticate");
+        .post("/authentication/auth");
 
       Swal.fire({
         icon: "success",

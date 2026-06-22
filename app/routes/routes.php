@@ -8,10 +8,10 @@ declare(strict_types=1);
 use Slim\Routing\RouteCollectorProxy;
 
 // Rotas Principais
-$app->get('/', \app\controller\Home::class . ':home')->add(\app\middleware\Middleware::web());
-$app->get('/home', \app\controller\Home::class . ':home')->add(\app\middleware\Middleware::web());
-$app->get('/login', \app\controller\Login::class . ':login')->add(\app\middleware\Middleware::web());
-$app->get('/profile', \app\controller\Profile::class . ':profile')->add(\app\middleware\Middleware::web());
+$app->get('/', \app\controller\Home::class . ':home');
+$app->get('/home', \app\controller\Home::class . ':home');
+$app->get('/login', \app\controller\Login::class . ':login');
+$app->get('/profile', \app\controller\Profile::class . ':profile');
 
 // Grupo de Autenticação
 $app->group('/authentication', function (RouteCollectorProxy $group) {
